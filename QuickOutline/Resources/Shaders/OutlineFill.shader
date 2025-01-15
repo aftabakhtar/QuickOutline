@@ -16,23 +16,25 @@ Shader "Custom/Outline Fill" {
 
   SubShader {
     Tags {
-      "Queue" = "Transparent+110"
-      "RenderType" = "Transparent"
-      "DisableBatching" = "True"
+        "Queue" = "Transparent+110"
+        "RenderType" = "Transparent"
+        "DisableBatching" = "True"
     }
+
 
     Pass {
-      Name "Fill"
-      Cull Off
-      ZTest [_ZTest]
-      ZWrite Off
-      Blend SrcAlpha OneMinusSrcAlpha
-      ColorMask RGB
+        Name "Fill"
+        Cull Off
+        ZTest LEqual  // Change this to LEqual
+        ZWrite On     // Enable Z writing
+        Blend SrcAlpha OneMinusSrcAlpha
+        ColorMask RGB
 
-    Stencil {
-        Ref [_StencilRef]
-        Comp NotEqual
-    }
+        Stencil {
+            Ref [_StencilRef]
+            Comp NotEqual
+            Pass Keep
+        }
 
       CGPROGRAM
       #include "UnityCG.cginc"
