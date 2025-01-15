@@ -74,6 +74,10 @@ public class Outline : MonoBehaviour {
   [SerializeField, HideInInspector]
   private List<ListVector3> bakeValues = new List<ListVector3>();
 
+  [SerializeField, Range(1, 255)]
+  private int stencilReference = 1;
+
+
   private Renderer[] renderers;
   private Material outlineMaskMaterial;
   private Material outlineFillMaterial;
@@ -270,6 +274,8 @@ public class Outline : MonoBehaviour {
   }
 
   void UpdateMaterialProperties() {
+    outlineMaskMaterial.SetInt("_StencilRef", stencilReference);
+    outlineFillMaterial.SetInt("_StencilRef", stencilReference);
 
     // Apply properties according to mode
     outlineFillMaterial.SetColor("_OutlineColor", outlineColor);
