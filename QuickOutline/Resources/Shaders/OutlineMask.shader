@@ -21,13 +21,14 @@ Shader "Custom/Outline Mask" {
         Pass {
             Name "Mask"
             Cull Off
-            ZTest [_ZTest]
-            ZWrite Off
+            ZTest LEqual  // Change this to LEqual
+            ZWrite On     // Enable Z writing
             ColorMask 0
 
             Stencil {
                 Ref [_StencilRef]
                 Pass Replace
+                Comp Always
             }
         }
     }
