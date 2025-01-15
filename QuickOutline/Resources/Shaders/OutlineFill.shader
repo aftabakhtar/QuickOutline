@@ -8,10 +8,10 @@
 
 Shader "Custom/Outline Fill" {
   Properties {
-    [Enum(UnityEngine.Rendering.CompareFunction)] _ZTest("ZTest", Float) = 0
-
-    _OutlineColor("Outline Color", Color) = (1, 1, 1, 1)
-    _OutlineWidth("Outline Width", Range(0, 10)) = 2
+      [Enum(UnityEngine.Rendering.CompareFunction)] _ZTest("ZTest", Float) = 0
+      _StencilRef("Stencil Reference", Range(1, 255)) = 1
+      _OutlineColor("Outline Color", Color) = (1, 1, 1, 1)
+      _OutlineWidth("Outline Width", Range(0, 10)) = 2
   }
 
   SubShader {
@@ -29,10 +29,10 @@ Shader "Custom/Outline Fill" {
       Blend SrcAlpha OneMinusSrcAlpha
       ColorMask RGB
 
-      Stencil {
-        Ref 1
+    Stencil {
+        Ref [_StencilRef]
         Comp NotEqual
-      }
+    }
 
       CGPROGRAM
       #include "UnityCG.cginc"
